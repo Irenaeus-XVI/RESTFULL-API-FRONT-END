@@ -8,10 +8,10 @@ let table = document.querySelector("#table_row");
 
 //NOTE - getData from the backend display it .
 async function getData() {
-    let Api = await fetch("http://localhost:8000/persons/");
-    let response = await Api.json();
-    console.log(response);
-    displayData(response);
+  let Api = await fetch("http://localhost:8000/persons/");
+  let response = await Api.json();
+  console.log(response.length);
+  displayData(response);
 }
 
 getData();
@@ -19,7 +19,13 @@ getData();
 
 //NOTE - displayData according to the response array size 
 function displayData(response) {
-    let Persons = `
+  //NOTE - Handle empty response
+  if (response.length == 27) {
+    table.innerHTML = response;
+    return;
+  }
+
+  let Persons = `
     <thead class="table-light">
     <tr>
       <th scope="col">#</th>
@@ -29,8 +35,10 @@ function displayData(response) {
       <th scope="col">Email</th>
     </tr>
   </thead>`;
-    for (let i = 0; i < response.length; i++) {
-        Persons += `
+
+
+  for (let i = 0; i < response.length; i++) {
+    Persons += `
        <tbody>
        <tr>
            <th scope="row">${i}</th>
@@ -41,8 +49,12 @@ function displayData(response) {
          </tr> 
        </tbody>
      `
-        table.innerHTML = Persons;
-    }
+    table.innerHTML = Persons;
+
+  }
+
 }
+
+
 
 
