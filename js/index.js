@@ -36,32 +36,6 @@ getData();
 
 
 
-//NOTE - Update specific person by id 
-async function updatePerson(updatedPersonObject, id) {
-  console.log("hello from updatePerson");
-  let updatedApi = await fetch(`http://localhost:8000/persons/${id}`, {
-    method: "PUT",
-    headers: {
-      "content-type": "application/json"
-    }, body: JSON.stringify(updatedPersonObject)
-  });
-  let response = await updatedApi.json();
-  console.log(response);
-  getData()
-}
-
-
-//NOTE - Add Person
-async function addPerson(addedPerson) {
-  let Api = await fetch(`http://localhost:8000/persons`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json"
-    }, body: JSON.stringify(addedPerson)
-  })
-  getData();
-}
-
 
 //NOTE - displayData according to the response array size 
 function displayData(response) {
@@ -111,7 +85,7 @@ function displayData(response) {
 
     updateBtn = document.querySelectorAll("#updateBtn")
 
-    deleteBtn = document.querySelector("#deleteBtn");
+    deleteBtn = document.querySelectorAll("#deleteBtn");
 
 
 
@@ -124,7 +98,57 @@ function displayData(response) {
       console.log(id);
     })
 
-  }
+  
+}
+for (let i = 0; i < deleteBtn.length; i++) {
+  deleteBtn[i].addEventListener("click", () => {
+    id = response[i].id;
+    console.log(id);
+    deletePerson(id);
+  })
+
+}
+
+}
+
+
+
+
+//NOTE - Add Person
+async function addPerson(addedPerson) {
+  let Api = await fetch(`http://localhost:8000/persons`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json"
+    }, body: JSON.stringify(addedPerson)
+  })
+  getData();
+}
+
+
+
+
+//NOTE - Update specific person by id 
+async function updatePerson(updatedPersonObject, id) {
+  console.log("hello from updatePerson");
+  let updatedApi = await fetch(`http://localhost:8000/persons/${id}`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json"
+    }, body: JSON.stringify(updatedPersonObject)
+  });
+  let response = await updatedApi.json();
+  console.log(response);
+  getData()
+}
+
+
+//NOTE - Delete specific person by id
+async function deletePerson(deletedPerson){
+  let api = await fetch(`http://localhost:8000/persons/${deletedPerson}`,{
+    method:"DELETE"
+  });
+  getData();
 }
 
 
