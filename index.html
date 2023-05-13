@@ -1,112 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESTFULL-API</title>
-    <link rel="stylesheet"
-      href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESTFULL-API</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
 
-  <body class="bg-dark">
+<body class="bg-dark">
+
+  <!-- //NOTE - NavBar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">CRUD</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 
 
-
-<!-- //NOTE - NavBar -->
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">CRUD</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       
-       
-       
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
-       
-      </ul>
-      <div class="d-flex justify-content-end w-75 mx-auto" role="search">
-        <input class="form-control me-2 border-dark" type="search" placeholder="Search" aria-label="Search" id="searchInput">
-        <button class="btn btn-outline-success"  id="searchBtn">Search</button>
-      </div>
-    </div>
-  </div>
-</nav>
+          </li>
 
-    
-    <div class="container w-75 mx-auto">
-      <div class="row py-5">
-
-        <!-- //NOTE - Table  -->
-        <table class="table text-white" id="table_row">
-          
-        </table>
-
-
-
-
-      </div>
-    </div>
-
-
-
-
-
-
-
-    <!-- //NOTE - Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1"
-      aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Update Person</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"
-              aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-
-            <form class="form-group">
-              <label for="">Name</label>
-              <input type="text" class="form-control" id="nameInput">
-              <label for="">Age</label>
-              <input type="number" class="form-control" id="ageInput">
-              <label for="">Gender</label>
-              <input type="text" class="form-control" id="genderInput">
-              <label for="">Email</label>
-              <input type="text" class="form-control" id="emailInput">
-
-
-            </form>
-
-
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary"
-              data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary"
-              data-bs-dismiss="modal" id="saveChanges">Save changes</button>
-          </div>
+        </ul>
+        <div class="d-flex justify-content-end w-75 mx-auto" role="search">
+          <input class="form-control me-2 border-dark" type="search" placeholder="Search" aria-label="Search"
+            id="searchInput">
+          <button class="btn btn-outline-success me-2" id="searchBtn">Search</button>
+          <button class="btn btn-outline-primary" id="addBtn">Add</button>
         </div>
       </div>
     </div>
+  </nav>
 
 
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
-  </body>
+  <!-- //NOTE - Table -->
+  <div class="container w-75 mx-auto">
+    <div class="row py-5">
+
+      <!-- //NOTE - Table  -->
+      <table class="table text-white" id="table_row">
+
+      </table>
+
+
+
+
+      <!-- //NOTE - Add Form  -->
+
+      <div  class="form-group text-white d-none" id="addPersonForm">
+
+        <header class="d-flex justify-content-end">
+          <button type="button" class="btn-close bg-white" aria-label="Close" id="closeFormBtn"></button>
+
+        </header>
+        <label class="mb-2" for="nameAddInput">Name</label>
+        <input class="form-control" type="text" name="" id="nameAddInput" placeholder="Enter Your Name">
+        <label class="mb-2"for="ageAddInput">Age</label>
+        <input  class="form-control"type="number" name="" id="ageAddInput" placeholder="Enter Your Age">
+        <label class="mb-2"for="genderAddInput">Gender</label>
+        <input  class="form-control"type="text" name="" id="genderAddInput" placeholder="Enter Your Gender">
+        <label class="mb-2"for="emailAddInput">Email</label>
+        <input  class="form-control mb-3"type="text" name="" id="emailAddInput" placeholder="Enter Your Email">
+        <div class=" badge bg-danger w-100 fs-4 mb-3 d-none" id="errorBadge">All Inputs Are Required </div>
+        <br>
+        <button class="btn btn-outline-primary mb-2" id="addPersonBtn">Add Person</button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- //NOTE - Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update Person</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form class="form-group">
+            <label for="">Name</label>
+            <input type="text" class="form-control" id="nameInput">
+            <label for="">Age</label>
+            <input type="number" class="form-control" id="ageInput">
+            <label for="">Gender</label>
+            <input type="text" class="form-control" id="genderInput">
+            <label for="">Email</label>
+            <input type="text" class="form-control" id="emailInput">
+
+
+          </form>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="saveChanges">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/index.js"></script>
+</body>
 
 </html>
