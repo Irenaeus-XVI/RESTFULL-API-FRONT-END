@@ -22,7 +22,7 @@ let ageAddInput = document.querySelector("#ageAddInput");
 let genderAddInput = document.querySelector("#genderAddInput");
 let emailAddInput = document.querySelector("#emailAddInput");
 let closeFormBtn = document.querySelector("#closeFormBtn");
-let errorBadge  = document.querySelector("#errorBadge");
+let errorBadge = document.querySelector("#errorBadge");
 //NOTE - getData from the backend display it .
 async function getData(Person) {
   let Api = await fetch(`http://localhost:8000/persons/${Person ? Person : ``}`);
@@ -52,12 +52,12 @@ async function updatePerson(updatedPersonObject, id) {
 
 
 //NOTE - Add Person
-async function addPerson(addedPerson){
-  let Api =  await fetch(`http://localhost:8000/persons`,{
-    method:"POST",
-    headers:{
+async function addPerson(addedPerson) {
+  let Api = await fetch(`http://localhost:8000/persons`, {
+    method: "POST",
+    headers: {
       "content-type": "application/json"
-    },body:JSON.stringify(addedPerson)
+    }, body: JSON.stringify(addedPerson)
   })
   getData();
 }
@@ -65,7 +65,7 @@ async function addPerson(addedPerson){
 
 //NOTE - displayData according to the response array size 
 function displayData(response) {
-  console.log(response.length,"asd");
+  console.log(response.length, "asd");
   //NOTE - Handle empty response
   if (response.length == 27) {
     table.innerHTML = response;
@@ -128,6 +128,30 @@ function displayData(response) {
 }
 
 
+//NOTE - handleInputValue 
+function handleInputValue(flag) {
+  flag ? nameInput = document.querySelector("#nameInput").value : nameInput = document.querySelector("#nameInput").value = "";
+  flag ? ageInput = document.querySelector("#ageInput").value : ageInput = document.querySelector("#ageInput").value = "";
+  flag ? genderInput = document.querySelector("#genderInput").value : genderInput = document.querySelector("#genderInput").value = "";
+  flag ? emailInput = document.querySelector("#emailInput").value : emailInput = document.querySelector("#emailInput").value = "";
+}
+
+//NOTE - handleAddPersonValue 
+function handleAddPersonValue(flag) {
+  flag ? nameAddInput = document.querySelector("#nameAddInput").value : nameAddInput = document.querySelector("#nameAddInput").value = "";
+  flag ? ageAddInput = document.querySelector("#ageAddInput").value : ageAddInput = document.querySelector("#ageAddInput").value = "";
+  flag ? genderAddInput = document.querySelector("#genderAddInput").value : genderAddInput = document.querySelector("#genderAddInput").value = "";
+  flag ? emailAddInput = document.querySelector("#emailAddInput").value : emailAddInput = document.querySelector("#emailAddInput").value = "";
+}
+
+//NOTE - toggleDisplay
+function toggleDisplay() {
+  table.classList.remove("d-none");
+  addPersonForm.classList.replace("d-block", "d-none");
+}
+
+
+
 //NOTE - Handle modal saveChanges Button
 saveChanges.addEventListener("click", () => {
   console.log("hello from click ", id);
@@ -163,60 +187,36 @@ addBtn.addEventListener("click", () => {
 
 //NOTE - addPersonBtn 
 addPersonBtn.addEventListener("click", () => {
-  if(nameAddInput.value!=""&&ageAddInput.value!=""&&genderAddInput.value!=""&&emailAddInput.value!=""){
-  let nameAddInputValue = nameAddInput.value;
-  let ageAddInputValue = ageAddInput.value;
-  let genderAddInputValue = genderAddInput.value;
-  let emailAddInputValue = emailAddInput.value;
-  console.log(nameAddInputValue,ageAddInputValue,genderAddInputValue,emailAddInputValue);
-  let addedPersonObject={
-    "name":nameAddInputValue,
-    "age":ageAddInputValue,
-    "gender":genderAddInputValue,
-    "email":emailAddInputValue
-  }
-  addPerson(addedPersonObject);
-  handleInputValue(false);
-  toggleDisplay();
-  handleAddPersonValue(false);
-  errorBadge.classList.replace("d-block","d-none");
+  if (nameAddInput.value != "" && ageAddInput.value != "" && genderAddInput.value != "" && emailAddInput.value != "") {
+    let nameAddInputValue = nameAddInput.value;
+    let ageAddInputValue = ageAddInput.value;
+    let genderAddInputValue = genderAddInput.value;
+    let emailAddInputValue = emailAddInput.value;
+    console.log(nameAddInputValue, ageAddInputValue, genderAddInputValue, emailAddInputValue);
+    let addedPersonObject = {
+      "name": nameAddInputValue,
+      "age": ageAddInputValue,
+      "gender": genderAddInputValue,
+      "email": emailAddInputValue
+    }
+    addPerson(addedPersonObject);
+    handleInputValue(false);
+    toggleDisplay();
+    handleAddPersonValue(false);
+    errorBadge.classList.replace("d-block", "d-none");
 
-}
-else{
-  errorBadge.classList.replace("d-none","d-block");
-}
+  }
+  else {
+    errorBadge.classList.replace("d-none", "d-block");
+  }
 
 });
 
 
 //NOTE - closeFormBtn
-
-closeFormBtn.addEventListener("click",()=>{
+closeFormBtn.addEventListener("click", () => {
   toggleDisplay();
 })
-
-//NOTE - handleInputValue 
-function handleInputValue(flag) {
-  flag ? nameInput = document.querySelector("#nameInput").value : nameInput = document.querySelector("#nameInput").value = "";
-  flag ? ageInput = document.querySelector("#ageInput").value : ageInput = document.querySelector("#ageInput").value = "";
-  flag ? genderInput = document.querySelector("#genderInput").value : genderInput = document.querySelector("#genderInput").value = "";
-  flag ? emailInput = document.querySelector("#emailInput").value : emailInput = document.querySelector("#emailInput").value = "";
-}
-
-//NOTE - handleAddPersonValue 
-function handleAddPersonValue(flag) {
-  flag ? nameAddInput = document.querySelector("#nameAddInput").value : nameAddInput = document.querySelector("#nameAddInput").value = "";
-  flag ? ageAddInput = document.querySelector("#ageAddInput").value : ageAddInput = document.querySelector("#ageAddInput").value = "";
-  flag ? genderAddInput = document.querySelector("#genderAddInput").value : genderAddInput = document.querySelector("#genderAddInput").value = "";
-  flag ? emailAddInput = document.querySelector("#emailAddInput").value : emailAddInput = document.querySelector("#emailAddInput").value = "";
-}
-
-//NOTE - toggleDisplay
-function toggleDisplay(){
-  table.classList.remove("d-none");
-  addPersonForm.classList.replace("d-block", "d-none");
-}
-
 
 
 
