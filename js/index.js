@@ -37,6 +37,50 @@ getData();
 
 
 
+
+
+
+//NOTE - Add Person
+async function addPerson(addedPerson) {
+  let Api = await fetch(`http://localhost:8000/persons`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json"
+    }, body: JSON.stringify(addedPerson)
+  })
+
+  // Show success message
+  displayToastify("green", "added")
+  getData();
+}
+
+
+//NOTE - Update specific person by id 
+async function updatePerson(updatedPersonObject, id) {
+  console.log("hello from updatePerson");
+  let updatedApi = await fetch(`http://localhost:8000/persons/${id}`, {
+    method: "PUT",
+    headers: {
+      "content-type": "application/json"
+    }, body: JSON.stringify(updatedPersonObject)
+  });
+  let response = await updatedApi.json();
+  console.log(response);
+  displayToastify("blue", "updated")
+  getData()
+}
+
+
+//NOTE - Delete specific person by id
+async function deletePerson(deletedPerson) {
+  let api = await fetch(`http://localhost:8000/persons/${deletedPerson}`, {
+    method: "DELETE"
+  });
+  displayToastify("red", "deleted")
+  getData();
+}
+
+
 //NOTE - displayData according to the response array size 
 function displayData(response) {
   console.log(response.length, "asd");
@@ -98,57 +142,17 @@ function displayData(response) {
       console.log(id);
     })
 
-  
-}
-for (let i = 0; i < deleteBtn.length; i++) {
-  deleteBtn[i].addEventListener("click", () => {
-    id = response[i].id;
-    console.log(id);
-    deletePerson(id);
-  })
 
-}
+  }
+  for (let i = 0; i < deleteBtn.length; i++) {
+    deleteBtn[i].addEventListener("click", () => {
+      id = response[i].id;
+      console.log(id);
+      deletePerson(id);
+    })
 
-}
+  }
 
-
-
-
-//NOTE - Add Person
-async function addPerson(addedPerson) {
-  let Api = await fetch(`http://localhost:8000/persons`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json"
-    }, body: JSON.stringify(addedPerson)
-  })
-  getData();
-}
-
-
-
-
-//NOTE - Update specific person by id 
-async function updatePerson(updatedPersonObject, id) {
-  console.log("hello from updatePerson");
-  let updatedApi = await fetch(`http://localhost:8000/persons/${id}`, {
-    method: "PUT",
-    headers: {
-      "content-type": "application/json"
-    }, body: JSON.stringify(updatedPersonObject)
-  });
-  let response = await updatedApi.json();
-  console.log(response);
-  getData()
-}
-
-
-//NOTE - Delete specific person by id
-async function deletePerson(deletedPerson){
-  let api = await fetch(`http://localhost:8000/persons/${deletedPerson}`,{
-    method:"DELETE"
-  });
-  getData();
 }
 
 
@@ -160,20 +164,23 @@ function handleInputValue(flag) {
   flag ? emailInput = document.querySelector("#emailInput").value : emailInput = document.querySelector("#emailInput").value = "";
 }
 
+
 //NOTE - handleAddPersonValue 
-function handleAddPersonValue(flag) {
-  flag ? nameAddInput = document.querySelector("#nameAddInput").value : nameAddInput = document.querySelector("#nameAddInput").value = "";
-  flag ? ageAddInput = document.querySelector("#ageAddInput").value : ageAddInput = document.querySelector("#ageAddInput").value = "";
-  flag ? genderAddInput = document.querySelector("#genderAddInput").value : genderAddInput = document.querySelector("#genderAddInput").value = "";
-  flag ? emailAddInput = document.querySelector("#emailAddInput").value : emailAddInput = document.querySelector("#emailAddInput").value = "";
+function handleAddPersonValue() {
+  nameAddInput.value = "";
+  ageAddInput.value = "";
+  genderAddInput.value = "";
+  emailAddInput.value = "";
+
+
 }
+
 
 //NOTE - toggleDisplay
 function toggleDisplay() {
   table.classList.remove("d-none");
   addPersonForm.classList.replace("d-block", "d-none");
 }
-
 
 
 //NOTE - Handle modal saveChanges Button
@@ -194,6 +201,7 @@ saveChanges.addEventListener("click", () => {
 
 });
 
+
 //NOTE - Get specific person
 searchBtn.addEventListener("click", () => {
   let searchValue = searchInput.value;
@@ -208,6 +216,7 @@ addBtn.addEventListener("click", () => {
   addPersonForm.classList.replace("d-none", "d-block");
 
 });
+
 
 //NOTE - addPersonBtn 
 addPersonBtn.addEventListener("click", () => {
@@ -224,9 +233,9 @@ addPersonBtn.addEventListener("click", () => {
       "email": emailAddInputValue
     }
     addPerson(addedPersonObject);
-    handleInputValue(false);
+
     toggleDisplay();
-    handleAddPersonValue(false);
+    handleAddPersonValue();
     errorBadge.classList.replace("d-block", "d-none");
 
   }
@@ -243,4 +252,16 @@ closeFormBtn.addEventListener("click", () => {
 })
 
 
-
+//NOTE - displayToastify
+function displayToastify(color, action) {
+  Toastify({
+    text: `Person ${action} successfully`,
+    duration: 3000, // 3 seconds
+    newWindow: true,
+    close: true,
+    gravity: "top",
+    position: "right",
+    backgroundColor: `${color}`,
+    stopOnFocus: true,
+  }).showToast();
+}
