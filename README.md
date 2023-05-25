@@ -40,11 +40,11 @@ To get started with this project, follow these steps:
 
 1.Interact with the API:
 
-    Use the provided user interface to perform operations such as creating, reading, updating, and deleting data through the RESTful API endpoints provided by the back-end server.
+   Use the provided user interface to perform operations such as creating, reading, updating, and deleting data through the RESTful API endpoints provided by the back-end server.
 
 2.View and manipulate data:
 
-    The front-end code will display the fetched data from the back-end API and allow you to perform various actions on it.
+   The front-end code will display the fetched data from the back-end API and allow you to perform various actions on it.
 
 ## Backend Documentation
 
